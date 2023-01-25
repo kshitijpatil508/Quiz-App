@@ -7,61 +7,92 @@
     <title>Document</title>
     <link rel="stylesheet" href="style.css" />
   </head>
-
+  <!--         <div class="score">Score: <span id="score_count">0</span></div>
+ -->
   <body>
+    <script src="before.js"></script>
     <section class="main">
       <div class="container">
-        <div class="score">Score: <span id="score_count">0</span></div>
-        <div class="col">
-          <h3 id="questionBox">
-            1) Lorem ipsum dolor sit amet, consectetur adipisicing elit Debitis?
-          </h3>
+        <div class="left">
+          <div class="question_section">
+            <h2 id="question_no">Question No. 1</h2>
+            <br /><br />
+            <h3 id="questionBox">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit Debitis?
+            </h3>
+          </div>
+          <div class="score_section">
+            <div class="score_info">
+              <div class="score_right">
+                <div>Total</div>
+                <div>Attempted</div>
+                <div>Correct</div>
+                <div>Incorrect</div>
+              </div>
+
+              <div class="score_left">
+                <div id="total">: 0</div>
+                <div id="attempted">: 0</div>
+                <div id="correct_answer">: 0</div>
+                <div id="wrong_answer">: 0</div>
+              </div>
+            </div>
+            <div class="score">Score: <span id="score_count">0</span></div>
+          </div>
         </div>
-        <div class="col box">
-          <input
-            name="option"
-            type="radio"
-            id="first"
-            value="a"
-            class="quiz_options"
-            required
-          />
-          <label for="first">Testing 1</label>
+        <div class="right">
+          <div class="option_section">
+            <div class="col box" id="first_option">
+              <input
+                name="option"
+                type="radio"
+                id="first"
+                value="a"
+                class="quiz_options"
+                required
+              />
+              <label for="first">Testing 1</label>
+            </div>
+
+            <div class="col box" id="second_option">
+              <input
+                name="option"
+                type="radio"
+                id="second"
+                value="b"
+                class="quiz_options"
+                required
+              />
+              <label for="second">Testing 2</label>
+            </div>
+            <div class="col box" id="third_option">
+              <input
+                name="option"
+                type="radio"
+                id="third"
+                value="c"
+                class="quiz_options"
+                required
+              />
+              <label for="third">Testing 3</label>
+            </div>
+            <div class="col box" id="fourth_option">
+              <input
+                name="option"
+                type="radio"
+                id="fourth"
+                value="d"
+                class="quiz_options"
+                required
+              />
+              <label for="fourth">Testing 4</label>
+            </div>
+          </div>
+          <div class="button_section">
+            <button id="submit">Submit</button>
+            <button disabled id="next">Next</button>
+          </div>
         </div>
-        <div class="col box">
-          <input
-            name="option"
-            type="radio"
-            id="second"
-            value="b"
-            class="quiz_options"
-            required
-          />
-          <label for="second">Testing 2</label>
-        </div>
-        <div class="col box">
-          <input
-            name="option"
-            type="radio"
-            id="third"
-            value="c"
-            class="quiz_options"
-            required
-          />
-          <label for="third">Testing 3</label>
-        </div>
-        <div class="col box">
-          <input
-            name="option"
-            type="radio"
-            id="fourth"
-            value="d"
-            class="quiz_options"
-            required
-          />
-          <label for="fourth">Testing 4</label>
-        </div>
-        <button id="submit">Submit</button>
       </div>
     </section>
     <script src="script.js"></script>
