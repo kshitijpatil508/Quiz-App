@@ -35,35 +35,67 @@ const quizData = [
 let index = 0;
 let correct = 0,
   incorrect = 0,
-  total = quizData.length;
+  attempted = 0;
+total = quizData.length;
+document.getElementById("total").innerText = `: ${total}`;
+
 let questionBox = document.getElementById("questionBox");
+let questionNum = document.getElementById("question_no");
 let allInputs = document.querySelectorAll("input[type='radio']");
 let score_count = document.getElementById("score_count");
+let correct_count = document.getElementById("correct_answer");
+let incorrect_count = document.getElementById("wrong_answer");
+
 score_count_value = 0;
+
+// LOADING QUESTION
 const loadQuestion = () => {
   if (total === index) {
     return quizEnd();
   }
   reset();
+
   const data = quizData[index];
-  questionBox.innerHTML = `${index + 1}) ${data.question}`;
+  questionNum.innerText = `Question No. ${index + 1}`;
+  questionBox.innerHTML = `${data.question}`;
   allInputs[0].nextElementSibling.innerText = data.a;
   allInputs[1].nextElementSibling.innerText = data.b;
   allInputs[2].nextElementSibling.innerText = data.c;
   allInputs[3].nextElementSibling.innerText = data.d;
 };
 
+// Submit click function
 document.querySelector("#submit").addEventListener("click", function () {
   const data = quizData[index];
   const ans = getAnswer();
+  let options = ["a", "b", "c", "d"];
+  ans_no = options.indexOf(ans);
   if (ans === data.correct) {
+    allInputs[ans_no].nextElementSibling.classList.add("correct_answer");
+
     score_count_value++;
     correct++;
   } else {
+    allInputs[ans_no].nextElementSibling.classList.add("incorrect_answer");
+    allInputs[options.indexOf(data.correct)].nextElementSibling.classList.add(
+      "correct_answer"
+    );
     incorrect++;
   }
+
+  attempted++;
+
+  score_count.innerText = `${10 * score_count_value}`;
+  correct_count.innerText = `: ${correct}`;
+  incorrect_count.innerText = `: ${incorrect}`;
+  document.getElementById("attempted").innerText = `: ${attempted}`;
+  document.getElementById("submit").disabled = true;
+  document.getElementById("next").disabled = false;
+});
+
+//
+document.querySelector("#next").addEventListener("click", function () {
   index++;
-  score_count.innerText = `${score_count_value}`;
   loadQuestion();
 });
 
@@ -79,16 +111,31 @@ const getAnswer = () => {
 
 const reset = () => {
   allInputs.forEach((inputEl) => {
+    document.getElementById("submit").disabled = false;
+    document.getElementById("next").disabled = true;
+
     inputEl.checked = false;
+    inputEl.nextElementSibling.classList.remove("incorrect_answer");
+    inputEl.nextElementSibling.classList.remove("correct_answer");
   });
 };
 
 const quizEnd = () => {
-  // console.log(document.getElementsByClassName("container"));
   document.getElementsByClassName("container")[0].innerHTML = `
-        <div class="col">
-            <h3 class="w-100"> Hii, you've scored ${correct} / ${total} </h3>
+        <div class="result_display" >
+            <h1 class="w-100"> Hii, you've scored ${
+              10 * score_count_value
+            } out of ${total * 10} </h1>
+           
+           <div> <h3 class="w-100"><pre>Attempted&nbsp: ${attempted} / ${total}</pre></h3><br>
+            <h3 class="w-100"><pre>Correct&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp: ${correct} / ${total}</pre></h3><br>
+            <h3 class="w-100"><pre>Incorret&nbsp&nbsp&nbsp&nbsp&nbsp: ${incorrect} / ${total}</pre> </h3><br>
+            </div>
+            <button id="restart" onClick="window.location.reload()">Restart</button>
+
         </div>
     `;
 };
+
 loadQuestion(index);
+// Quiz start
