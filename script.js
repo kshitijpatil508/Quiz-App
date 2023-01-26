@@ -1,18 +1,10 @@
 const quizData = [
   {
-    question: "Which of the following is a client site language?",
-    a: "Java",
-    b: "C",
-    c: "Python",
-    d: "JavaScript",
-    correct: "d",
-  },
-  {
     question: "What does HTML stand for?",
     a: "Hypertext Markup Language",
     b: "Cascading Style Sheet",
     c: "Jason Object Notation",
-    d: "Helicopters Terminals Motorboats Lamborginis",
+    d: "Hypertext Markdown Language ",
     correct: "a",
   },
   {
@@ -28,8 +20,65 @@ const quizData = [
     a: "Hypertext Markup Language",
     b: "Cascading Style Sheet",
     c: "Jason Object Notation",
-    d: "Helicopters Terminals Motorboats Lamborginis",
+    d: "Cover Style Sheet",
     correct: "b",
+  },
+  {
+    question: "Which of the following is a client site language?",
+    a: "Java",
+    b: "C",
+    c: "Python",
+    d: "JavaScript",
+    correct: "d",
+  },
+  {
+    question: "Which of the following is not a Programming language",
+    a: "Javascrip",
+    b: "C#",
+    c: "HTML",
+    d: "Python",
+    correct: "c",
+  },
+  {
+    question: "Which company created Javascript language",
+    a: "Oracle",
+    b: "Microsoft",
+    c: "Netscape",
+    d: "Google",
+    correct: "c",
+  },
+  {
+    question: "Which of the following is not a Javascript framework",
+    a: "Springboot",
+    b: "Node.js",
+    c: "React",
+    d: "Angular",
+    correct: "a",
+  },
+  {
+    question: "Which HTML tag is used to break a line",
+    a: "<break>",
+    b: "<br>",
+    c: "<brk>",
+    d: "</n>",
+    correct: "b",
+  },
+  {
+    question:
+      "Which of the following function of Array object removes the last element from an array and returns that element?",
+    a: "push()",
+    b: "pop()",
+    c: "join()",
+    d: "remove()",
+    correct: "b",
+  },
+  {
+    question: "The '#' symbol specifies that the selector is",
+    a: "class",
+    b: "tag",
+    c: "id",
+    d: "universal",
+    correct: "c",
   },
 ];
 let index = 0;
@@ -68,29 +117,33 @@ const loadQuestion = () => {
 document.querySelector("#submit").addEventListener("click", function () {
   const data = quizData[index];
   const ans = getAnswer();
-  let options = ["a", "b", "c", "d"];
-  ans_no = options.indexOf(ans);
-  if (ans === data.correct) {
-    allInputs[ans_no].nextElementSibling.classList.add("correct_answer");
-
-    score_count_value++;
-    correct++;
+  if (ans == undefined || ans == null) {
+    alert("please select one Option");
   } else {
-    allInputs[ans_no].nextElementSibling.classList.add("incorrect_answer");
-    allInputs[options.indexOf(data.correct)].nextElementSibling.classList.add(
-      "correct_answer"
-    );
-    incorrect++;
+    let options = ["a", "b", "c", "d"];
+    ans_no = options.indexOf(ans);
+    if (ans === data.correct) {
+      allInputs[ans_no].nextElementSibling.classList.add("correct_answer");
+
+      score_count_value++;
+      correct++;
+    } else {
+      allInputs[ans_no].nextElementSibling.classList.add("incorrect_answer");
+      allInputs[options.indexOf(data.correct)].nextElementSibling.classList.add(
+        "correct_answer"
+      );
+      incorrect++;
+    }
+
+    attempted++;
+
+    score_count.innerText = `${10 * score_count_value}`;
+    correct_count.innerText = `: ${correct}`;
+    incorrect_count.innerText = `: ${incorrect}`;
+    document.getElementById("attempted").innerText = `: ${attempted}`;
+    document.getElementById("submit").disabled = true;
+    document.getElementById("next").disabled = false;
   }
-
-  attempted++;
-
-  score_count.innerText = `${10 * score_count_value}`;
-  correct_count.innerText = `: ${correct}`;
-  incorrect_count.innerText = `: ${incorrect}`;
-  document.getElementById("attempted").innerText = `: ${attempted}`;
-  document.getElementById("submit").disabled = true;
-  document.getElementById("next").disabled = false;
 });
 
 //
@@ -123,9 +176,9 @@ const reset = () => {
 const quizEnd = () => {
   document.getElementsByClassName("container")[0].innerHTML = `
         <div class="result_display" >
-            <h1 class="w-100"> Hii, you've scored ${
-              10 * score_count_value
-            } out of ${total * 10} </h1>
+            <h1 class="w-100"> Your score is ${10 * score_count_value} out of ${
+    total * 10
+  } </h1>
            
            <div> <h3 class="w-100"><pre>Attempted&nbsp: ${attempted} / ${total}</pre></h3><br>
             <h3 class="w-100"><pre>Correct&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp: ${correct} / ${total}</pre></h3><br>
@@ -137,5 +190,11 @@ const quizEnd = () => {
     `;
 };
 
-loadQuestion(index);
-// Quiz start
+function startQuiz() {
+  let welcome = document.getElementById("welcomePage");
+  welcome.classList.add("inactive");
+
+  let quizPage = document.getElementById("quiz_page");
+  quizPage.classList.remove("inactive");
+  loadQuestion(index);
+}

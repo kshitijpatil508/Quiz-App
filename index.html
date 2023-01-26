@@ -11,7 +11,25 @@
  -->
   <body>
     <section class="main">
-      <div class="container">
+      <!-- Welcome page start -->
+      <div class="welcome_page" id="welcomePage">
+        <h1>Welcome to Quiz</h1>
+
+        <h2>Instructions:</h2>
+        <ul>
+          <li>Each Question carries 10 Marks</li>
+          <li>Each Question is compulsary</li>
+          <li>Submit Button will not work unless option is selected</li>
+          <li>Once Submitted then answer cannot be changed</li>
+          <li>
+            Next Question will not appear until current question is Attempted
+          </li>
+        </ul>
+        <button id="start_Quiz" onclick="startQuiz()">Start Quiz</button>
+      </div>
+
+      <!-- Welcome page ends -->
+      <div class="container inactive" id="quiz_page">
         <div class="left">
           <div class="question_section">
             <h2 id="question_no">Question No. 1</h2>
@@ -50,7 +68,7 @@
                 class="quiz_options"
                 required
               />
-              <label for="first">Testing 1</label>
+              <label for="first">Option 1</label>
             </div>
 
             <div class="col box" id="second_option">
@@ -62,7 +80,7 @@
                 class="quiz_options"
                 required
               />
-              <label for="second">Testing 2</label>
+              <label for="second">Option 2</label>
             </div>
             <div class="col box" id="third_option">
               <input
@@ -73,7 +91,7 @@
                 class="quiz_options"
                 required
               />
-              <label for="third">Testing 3</label>
+              <label for="third">Option 3</label>
             </div>
             <div class="col box" id="fourth_option">
               <input
@@ -84,11 +102,11 @@
                 class="quiz_options"
                 required
               />
-              <label for="fourth">Testing 4</label>
+              <label for="fourth">Option 4</label>
             </div>
           </div>
           <div class="button_section">
-            <button id="submit">Submit</button>
+            <button id="submit" disabled>Submit</button>
             <button disabled id="next">Next</button>
           </div>
         </div>
